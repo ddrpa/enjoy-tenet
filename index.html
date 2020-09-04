@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="Description"
+      content="it helps you speak like temporal pincer movement"
+    />
+    <title>enjoy.TENET</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arya:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #cc998d;
+        font-size: 20px;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+      }
+      .container #language-selector {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+      }
+      .container #language-selector .lang {
+        color: #ecebe4;
+        margin: 0.5rem;
+        font-size: 1rem;
+      }
+      .container #language-selector .lang.selected {
+        color: #982649;
+        font-size: 1.2rem;
+      }
+      .container h1 {
+        text-align: center;
+        text-transform: uppercase;
+        font-family: "Arya", sans-serif;
+      }
+      .container textarea {
+        font-size: 2rem;
+        resize: none;
+        resize: none;
+        height: 20vh;
+        /* margin: 2vh; */
+        background-color: transparent;
+        border: transparent;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body class="container">
+    <div id="language-selector">
+      <a class="lang" href="#" data-lang="zh" onclick="changeLanguage(event)"
+        >中文</a
+      >
+      <a
+        class="lang selected"
+        href="#"
+        data-lang="en"
+        onclick="changeLanguage(event)"
+        >English</a
+      >
+    </div>
+    <h1>We live in a twilight world</h1>
+    <textarea id="reality"></textarea>
+    <textarea id="ryetail"></textarea>
+    <h1>And there are no friends at dusk</h1>
+    <script>
+      let separator = " ";
+      let lastInput = "reality";
+      const reality = document.getElementById("reality");
+      const ryetail = document.getElementById("ryetail");
+      function turnstile(value) {
+        const _value = value.split(separator);
+        const len = _value.length;
+        if (len < 3) return value;
+        const redTeam = _value.slice(0, Math.ceil(len / 2));
+        const maetEulb = _value.slice(Math.ceil(len / 2)).reverse();
+        let array = [];
+        for (let count = 0; count < maetEulb.length; count++) {
+          array.push(redTeam[count], maetEulb[count]);
+        }
+        array.push(...redTeam.slice(maetEulb.length));
+        return array.join(separator);
+      }
+      function teulrints(veaul) {
+        const _veaul = veaul.split(separator);
+        const len = _veaul.length;
+        if (len < 3) return veaul;
+        let maetDer = [];
+        let blueTeam = [];
+        let count = 0;
+        for (; count < len; count = count + 2) {
+          maetDer.push(_veaul[count]);
+          blueTeam.push(_veaul[count + 1]);
+        }
+        maetDer.push(..._veaul.slice(count));
+        return maetDer.concat(blueTeam.reverse()).join(separator);
+      }
+      function changeLanguage(event) {
+        const target = event.target;
+        if (target.classList.contains("selected")) return;
+        [].forEach.call(
+          document.querySelectorAll("#language-selector .lang"),
+          (lang) => {
+            lang.classList.contains("selected") &&
+              lang.classList.remove("selected");
+          }
+        );
+        target.classList.add("selected");
+        const targetLanguage = target.dataset.lang;
+        switch (targetLanguage) {
+          case "en":
+            separator = " ";
+            reality.value = "Don't try to understand it. Feel it.";
+            reality.dispatchEvent(new Event("input"));
+            ryetail.value = turnstile(reality.value);
+            break;
+          case "zh":
+            separator = "";
+            reality.value = "不要试图理解它，去感受它。";
+            reality.dispatchEvent(new Event("input"));
+            break;
+          default:
+            break;
+        }
+        if (lastInput !== null) {
+          switch (lastInput) {
+            case "reality":
+              ryetail.value = turnstile(reality.value);
+              break;
+            case "ryetail":
+              reality.value = teulrints(ryetail.value);
+              break;
+            default:
+              break;
+          }
+        }
+      }
+      window.onload = function () {
+        reality.oninput = (event) => {
+          ryetail.value = turnstile(event.target.value);
+          lastInput = "reality";
+        };
+        ryetail.oninput = (event) => {
+          reality.value = teulrints(event.target.value);
+          lastInput = "ryetail";
+        };
+        document
+          .querySelector('#language-selector .lang[data-lang="zh"]')
+          .dispatchEvent(new Event("click"));
+        reality.focus();
+      };
+    </script>
+  </body>
+</html>
